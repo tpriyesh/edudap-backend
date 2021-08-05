@@ -19,9 +19,6 @@ router.post('/signup', async (req, res) =>{
         data.username = req.body.username
         data.email = req.body.email
         data.phonenumber = req.body.phonenumber
-    
-        res.json({ message: 'signup successful'})
-
     usermodel.signUp(data,(error,result)=>{
         if(!result){
             res.json({ error: 'signup failed', error_description: error })

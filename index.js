@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var routes = require('./routes')
 var mongoose = require('mongoose');
-var MONGO_URL = 'mongodb://localhost:27017/edudap'
+var MONGO_URL = 'mongodb+srv://edudapuser:edudappwd@cluster0.1wliu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
