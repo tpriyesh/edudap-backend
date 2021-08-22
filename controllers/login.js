@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-var usermodel = require('../models/user')
+var usermodel = require('../models/userModel')
 
 router.post('/signup', async (req, res) =>{
     if (!req.body.username) {
