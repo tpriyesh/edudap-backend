@@ -1,25 +1,21 @@
 var express = require('express')
 var router = express.Router()
 var usermodel = require('../models/userModel')
+var validatelogin = require('../validator/loginValidator')
 
-router.post('/signup', async (req, res) =>{
-    if (!req.body.username) {
-        res.json({ error: 'invalid_details', error_description: "User name is required." })
-        return
-    }
-    if (!req.body.email) {
-        res.json({ error: 'invalid_details', error_description: "Email id is required." })
-        return
-    }
-    if (!req.body.phonenumber) {
-        res.json({ error: 'invalid_details', error_description: "Phone number is required." })
-        return
-    }
+router.post('/signup', validatelogin.signupValidation(), async (req, res) =>{
     let data ={}
         data.username = req.body.username
         data.email = req.body.email
         data.phonenumber = req.body.phonenumber
-    usermodel.signUp(data,(error,result)=>{
+
+    let dat = {}
+        dat.userclassid = req.body.userclassid
+        dat.userboardid = req.body.userboardid
+        dat.issubscriptionactive = req.body.issubscriptionactive
+        dat.purchaseditems = req.body.purchaseditems
+        
+    usermodel.signUp(data,dat,(error,result)=>{
         if(!result){
             res.json({ error: 'signup failed', error_description: error })
             return
@@ -29,16 +25,10 @@ router.post('/signup', async (req, res) =>{
 
 })
 
-router.post('/getotp', async (req, res) =>{
-    if (!req.body.phonenumber) {
-        res.json({ error: 'invalid_details', error_description: "Phone number is required." })
-        return
-    }
-
+router.post('/getotp', validatelogin.getotpValidation(), async (req, res) =>{
     usermodel.findUser(req.body.phonenumber,(result)=>{
-        console.log(result);
         if(!result){
-            res.json({ error: 'User not registered!', error_description: "" })
+            res.json({ error: 'User not registered!', error_description: "User not found!" })
             return
         }
         res.json({ message: 'Function for sending otp proccesssing!'})
@@ -46,13 +36,9 @@ router.post('/getotp', async (req, res) =>{
 
 })
 
-router.post('/checkotp', async (req, res) =>{
-    if (!req.body.otp) {
-        res.json({ error: 'invalid_details', error_description: "Otp feild is required." })
-        return
-    }
+router.post('/checkotp', validatelogin.checkotpValidation(), async (req, res) =>{
    if(req.body.otp !== 1234){
-    res.json({ error: 'invalid otp', error_description: "Otp mismatch." })
+    res.json({ error: 'invalid otp', error_description: "Otp mismatch!" })
     return
    }
    res.json({ message: 'login successful!'})

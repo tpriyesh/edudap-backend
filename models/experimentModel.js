@@ -3,7 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var experimentSchema = new Schema({
+    boardId: { type: String},
     classId: { type: String},
+    subjectId: { type: String},
     experimentname: { type: String },
     description: { type: String },
     isFree: { type: Boolean },
@@ -11,7 +13,7 @@ var experimentSchema = new Schema({
     lastupdateddate : { type: String}
 })
 
-const experimentModel = mongoose.model('user', experimentSchema);
+const experimentModel = mongoose.model('experiment', experimentSchema);
 
 module.exports.createexperiment = (data1,callback)=> {
     let usr = new experimentModel(data1)

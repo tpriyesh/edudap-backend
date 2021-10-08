@@ -3,13 +3,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var classSchema = new Schema({
-    BoardId: { type: String },
+    boardId: { type: String },
     classname: { type: String },
     isActive: { type: Boolean },
     createdDate: { type: String },
 })
 
-const classModel = mongoose.model('user', classSchema);
+const classModel = mongoose.model('class', classSchema);
 
 module.exports.createclass = (data1,callback)=> {
     let usr = new classModel(data1)

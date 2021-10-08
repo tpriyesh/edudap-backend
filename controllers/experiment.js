@@ -12,13 +12,11 @@ router.post('/createexperiment', async (req, res) =>{
         res.json({ error: 'invalid_details', error_description: "classId is required." })
         return
     }
-    if (!req.body.isActive) {
-        res.json({ error: 'invalid_details', error_description: "isActive field is required." })
-        return
-    }
 
     let data ={}
         data.classId = req.body.classId
+        data.boardId = req.body.boardId
+        data.subjectId = req.body.subjectId
         data.experimentname = req.body.experimentname
         data.isFree = req.body.isFree
         data.description = req.body.description
