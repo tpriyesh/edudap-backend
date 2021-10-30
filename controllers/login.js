@@ -15,25 +15,23 @@ router.post('/signup', validatelogin.signupValidation(), async (req, res) =>{
         dat.issubscriptionactive = req.body.issubscriptionactive
         dat.purchaseditems = req.body.purchaseditems
         
-    usermodel.signUp(data,dat,(error,result)=>{
+    var result = await usermodel.signUp(data,dat)
+    console.log(result);
         if(!result){
-            res.json({ error: 'signup failed', error_description: error })
+            res.json({ error: 'signup failed!', error_description: error })
             return
         }
-            res.json({ message: 'signup successful'})
-    })
+            res.json({ message: 'signup successful!'})
 
 })
 
 router.post('/getotp', validatelogin.getotpValidation(), async (req, res) =>{
-    usermodel.findUser(req.body.phonenumber,(result)=>{
+    var result = await usermodel.findUser(req.body.phonenumber)
         if(!result){
             res.json({ error: 'User not registered!', error_description: "User not found!" })
             return
         }
         res.json({ message: 'Function for sending otp proccesssing!'})
-    })
-
 })
 
 router.post('/checkotp', validatelogin.checkotpValidation(), async (req, res) =>{

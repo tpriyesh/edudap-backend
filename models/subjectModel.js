@@ -39,8 +39,8 @@ module.exports.listsubjectbyclass = async (classId,callback)=> {
     })
 }
 
-module.exports.deletesubject = async (subjectname,callback)=> {
-    await subjectModel.remove({subjectname,subjectname},(err,data)=>{
+module.exports.deletesubject = (subjectname,callback)=> {
+    subjectModel.deleteOne({subjectname:subjectname},(err,data)=>{
         if(err){
             callback(null)
         }

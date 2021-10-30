@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var classSchema = new Schema({
-    boardId: { type: String },
+    boardId: { type: mongoose.Schema.Types.ObjectId},
     classname: { type: String },
     isActive: { type: Boolean },
     createdDate: { type: String },
@@ -37,8 +37,8 @@ module.exports.listclassbyboard = async (boardId,callback)=> {
     })
 }
 
-module.exports.deleteclass = async (classname,callback)=> {
-    await classModel.remove({classname,classname},(err,data)=>{
+module.exports.deleteclass = (classname,callback)=> {
+    classModel.deleteOne({classname:classname},(err,data)=>{
         if(err){
             callback(null)
         }

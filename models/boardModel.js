@@ -10,9 +10,15 @@ var boardSchema = new Schema({
 
 const boardModel = mongoose.model('board', boardSchema);
 
-module.exports.createBoard = (data1,callback)=> {
-    let usr = new boardModel(data1)
-    usr.save((error, data) => { callback(error, data) })
+module.exports.createBoard = async(data1)=> {
+    try{
+        let usr = new boardModel(data1)
+        var result = await usr.save()
+        return result
+    }catch(e){
+        return []
+    }
+ 
 }
 
 module.exports.listBoard = async ()=> {
@@ -25,8 +31,8 @@ module.exports.listBoard = async ()=> {
     }
 }
 
-module.exports.deleteBoard = async (boardname,callback)=> {
-    await boardModel.remove({boardname,boardname},(err,data)=>{
+module.exports.deleteBoard = (boardname,callback)=> {
+    boardModel.deleteOne({boardname:boardname},(err,data)=>{
         if(err){
             callback(null)
         }
@@ -35,6 +41,5 @@ module.exports.deleteBoard = async (boardname,callback)=> {
         }
     })
 }
-
 
 

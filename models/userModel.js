@@ -20,60 +20,53 @@ var usermoreSchema = new Schema({
 const userModel = mongoose.model('user', userSchema);
 const usermoreModel = mongoose.model('usermore', usermoreSchema);
 
-module.exports.signUp = (data1,data2,callback)=> {
+module.exports.signUp = async(data1,data2)=> {
     try{
         let usr = new userModel(data1)
-        usr.save((error, data) =>{
+        var data = await usr.save()
         data2.userid = data._id
         let user1 = new usermoreModel(data2)
-        user1.save((error, data) => { callback(error, data) })
-        })
+        var dat = await user1.save()
+        return dat
     }
  catch(e){
      return []
  }
 }
 
-module.exports.findUser = async(phonenumber1,callback)=> {
-    await userModel.findOne({phonenumber: phonenumber1},(err,data)=>{
-        if(err){
-            callback(null)
-        }
-        else{
-            callback(data)
-        }
-    })
+module.exports.findUser = async(phonenumber1)=> {
+    try{
+        var data = await userModel.findOne({phonenumber: phonenumber1})
+        return data
+    } catch(e){
+        return []
+    }
 }
 
-module.exports.listUser = async(callback)=> {
-    await userModel.find({},(err,data)=>{
-        if(err){
-            callback(null)
-        }
-        else{
-            callback(data)
-        }
-    })
+module.exports.listallusers = async()=> {
+    try{
+        var data = await userModel.find({})
+        return data
+    }catch(e){
+        return []
+    }
 }
 
-module.exports.addexperiment = async(id,callback)=> {
-    await userModel.puchasedexperiments.push(id,(err,data)=>{
-        if(err){
-            callback(null)
-        }
-        else{
-            callback(data)
-        }
-    })
-}
+module.exports.addexperiments = (id, items,callback)=>{
+        usermoreModel.findByIdAndUpdate(id,{$addToSet:{purchaseditems:items}},(error,data)=>{
+            if(error){
+                 callback(error)
+            }
+            else{
+                callback(data)
+            }
+        })
+    }
 
-module.exports.listauser = async(id,callback)=> {
-    await userModel.find({_id:id},(err,data)=>{
-        if(err){
-            callback(null)
-        }
-        else{
-            callback(data)
-        }
-    })
+module.exports.listauser = (id)=> {
+    try{
+        return usermoreModel.find({userid:id})
+    }catch(e){
+        return []
+    }
 }

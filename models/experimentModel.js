@@ -42,9 +42,8 @@ module.exports.listexperimentbycalss = async (classId,callback)=> {
     })
 }
 
-
-module.exports.listexperimentbyid = async (id,callback)=> {
-    await experimentModel.find({_id: id},(err,data)=>{
+module.exports.listexperimentbysubject = async (subjectId,callback)=> {
+    await experimentModel.find({subjectId: subjectId},(err,data)=>{
         if(err){
             callback(null)
         }
@@ -52,6 +51,21 @@ module.exports.listexperimentbyid = async (id,callback)=> {
             callback(data)
         }
     })
+}
+
+module.exports.listfreeexperiment = async (callback)=> {
+    await experimentModel.find({isFree: "true" },(err,data)=>{
+        if(err){
+            callback(null)
+        }
+        else{
+            callback(data)
+        }
+    })
+}
+
+module.exports.listexperimentbyid = async (id)=> {
+       return experimentModel.find({_id: id})
 }
 
 module.exports.listfreeexperiments = async (classId,isFree,callback)=> {
@@ -66,7 +80,7 @@ module.exports.listfreeexperiments = async (classId,isFree,callback)=> {
 }
 
 module.exports.deleteexperiment = async (experimentname,callback)=> {
-    await experimentModel.remove({experimentname,experimentname},(err,data)=>{
+    await experimentModel.deleteOne({experimentname:experimentname},(err,data)=>{
         if(err){
             callback(null)
         }

@@ -1,20 +1,9 @@
 var express = require('express')
 var router = express.Router()
 var subjectModel = require('../models/subjectModel')
+var subjectValidation = require('../validator/subjectValidator')
 
-router.post('/createsubject', async (req, res) =>{
-    if (!req.body.boardId) {
-        res.json({ error: 'invalid_details', error_description: "Board Id is required." })
-        return
-    }
-    if (!req.body.subjectname) {
-        res.json({ error: 'invalid_details', error_description: "subject name is required." })
-        return
-    }
-    if (!req.body.isActive) {
-        res.json({ error: 'invalid_details', error_description: "isActive field is required." })
-        return
-    }
+router.post('/createsubject', subjectValidation.createsubjectValidation(), async (req, res) =>{
 
     let data ={}
         data.boardId = req.body.boardId
@@ -34,9 +23,8 @@ router.post('/createsubject', async (req, res) =>{
 
 })
 
-router.post('/listallsubject', async (req, res) =>{
-    subjectModel.listsubjectbyboard(req.params.boardId,(result)=>{
-        console.log(result);
+router.get('/listsubjectbyclass/:classId', async (req, res) =>{
+    subjectModel.listsubjectbyclass(req.params.classId,(result)=>{
         if(!result){
             res.json({ error: 'subject data empty', error_description: "" })
             return
@@ -46,9 +34,8 @@ router.post('/listallsubject', async (req, res) =>{
 
 })
 
-router.post('/listsubjectbyboard', async (req, res) =>{
+router.get('/listallsubject', async (req, res) =>{
     subjectModel.listsubject((result)=>{
-        console.log(result);
         if(!result){
             res.json({ error: 'subject data empty', error_description: "" })
             return
@@ -57,12 +44,8 @@ router.post('/listsubjectbyboard', async (req, res) =>{
     })
 
 })
-router.post('/deletesubject', async (req, res) =>{
-    if (!req.body.subjectname) {
-        res.json({ error: 'invalid_details', error_description: "subject name is required." })
-        return
-    }
-    subjectModel.createsubject(subjectname,(error,result)=>{
+router.delete('/deletesubject/:subjectname',subjectValidation.deletesubjectValidation(), async(req, res) =>{
+    subjectModel.deletesubject(req.params.subjectname,(result)=>{
         if(!result){
             res.json({ error: 'Deleting subject is failed', error_description: error })
             return

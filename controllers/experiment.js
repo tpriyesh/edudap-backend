@@ -2,17 +2,9 @@
 var express = require('express')
 var router = express.Router()
 var experimentModel = require('../models/experimentModel')
+var experimentValidator = require('../validator/experimentValidator')
 
-router.post('/createexperiment', async (req, res) =>{
-    if (!req.body.experimentname) {
-        res.json({ error: 'invalid_details', error_description: "experiment name is required." })
-        return
-    }
-    if (!req.body.classId) {
-        res.json({ error: 'invalid_details', error_description: "classId is required." })
-        return
-    }
-
+router.post('/createexperiment', experimentValidator.createexperimentValidation(), async (req, res) =>{
     let data ={}
         data.classId = req.body.classId
         data.boardId = req.body.boardId
@@ -33,9 +25,8 @@ router.post('/createexperiment', async (req, res) =>{
 
 })
 
-router.post('/listallexperiment', async (req, res) =>{
-    experimentModel.listexperiment((result)=>{
-        console.log(result);
+router.get('/listallexperiment', async (req, res) =>{
+    experimentModel.listexperiment(result=>{
         if(!result){
             res.json({ error: 'experiment data empty', error_description: "" })
             return
@@ -45,9 +36,8 @@ router.post('/listallexperiment', async (req, res) =>{
 
 })
 
-router.post('/listallexperimentbyclass', async (req, res) =>{
-    experimentModel.listexperiment(req.params.classId,(result)=>{
-        console.log(result);
+router.get('/listallexperimentbyclass/:classId', async (req, res) =>{
+    experimentModel.listexperimentbycalss(req.params.classId,(result)=>{
         if(!result){
             res.json({ error: 'experiment data empty', error_description: "" })
             return
@@ -57,9 +47,19 @@ router.post('/listallexperimentbyclass', async (req, res) =>{
 
 })
 
-router.post('/listallfreeexperiments', async (req, res) =>{
-    experimentModel.listexperiment(req.body.classId,req.body.isFree,(result)=>{
-        console.log(result);
+router.get('/listallexperimentbysubject/:subjectId', async (req, res) =>{
+    experimentModel.listexperimentbysubject(req.params.subjectId,(result)=>{
+        if(!result){
+            res.json({ error: 'subject data empty!', error_description: "" })
+            return
+        }
+        res.json({result})
+    })
+
+})
+
+router.get('/listallfreeexperiments', async (req, res) =>{
+    experimentModel.listfreeexperiment(result=>{
         if(!result){
             res.json({ error: 'experiment data empty', error_description: "" })
             return
@@ -69,12 +69,8 @@ router.post('/listallfreeexperiments', async (req, res) =>{
 
 })
 
-router.post('/deleteexperiment', async (req, res) =>{
-    if (!req.body.experimentname) {
-        res.json({ error: 'invalid_details', error_description: "experiment name is required." })
-        return
-    }
-    experimentModel.createexperiment(experimentname,(error,result)=>{
+router.delete('/deleteexperiment/:experimentname', deleteexperimentValidation(), async (req, res) =>{
+    experimentModel.deleteexperiment(req.params.experimentname,(result)=>{
         if(!result){
             res.json({ error: 'Deleting experiment is failed', error_description: error })
             return
