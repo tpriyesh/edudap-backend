@@ -3,9 +3,9 @@ var router = express.Router()
 var usermodel = require('../models/userModel')
 var experimentModel = require('../models/experimentModel')
 
-router.get('/listauser/:userid', async (req, res) =>{
+router.get('/listauser/:userid', async(req, res) =>{  
     var result = await usermodel.listauser(req.params.userid)
-        if(result.length == 0){
+        if(result == null){
             res.status(400)
             res.json({ error: 'No data!', error_description: "User data not available!" })
             return

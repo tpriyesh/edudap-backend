@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var experimentSchema = new Schema({
-    boardId: { type: String},
-    classId: { type: String},
-    subjectId: { type: String},
+    boardId: { type: mongoose.Schema.Types.ObjectId, ref: "board"},
+    classId: { type: mongoose.Schema.Types.ObjectId, ref: "class"},
+    subjectId: { type: mongoose.Schema.Types.ObjectId, ref: "subject"},
     experimentname: { type: String },
     description: { type: String },
     isFree: { type: Boolean },
@@ -21,7 +21,7 @@ module.exports.createexperiment = (data1,callback)=> {
 }
 
 module.exports.listexperiment = async (callback)=> {
-    await experimentModel.find({},(err,data)=>{
+    await experimentModel.find({}).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -32,7 +32,7 @@ module.exports.listexperiment = async (callback)=> {
 }
 
 module.exports.listexperimentbycalss = async (classId,callback)=> {
-    await experimentModel.find({classId: classId},(err,data)=>{
+    await experimentModel.find({classId: classId}).populate("boardId").populate("classId").populate("subjectId").exec( (err,data)=>{
         if(err){
             callback(null)
         }
@@ -40,10 +40,11 @@ module.exports.listexperimentbycalss = async (classId,callback)=> {
             callback(data)
         }
     })
+   
 }
 
 module.exports.listexperimentbysubject = async (subjectId,callback)=> {
-    await experimentModel.find({subjectId: subjectId},(err,data)=>{
+    await experimentModel.find({subjectId: subjectId}).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -54,7 +55,7 @@ module.exports.listexperimentbysubject = async (subjectId,callback)=> {
 }
 
 module.exports.listfreeexperiment = async (callback)=> {
-    await experimentModel.find({isFree: "true" },(err,data)=>{
+    await experimentModel.find({isFree: "true" }).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -65,11 +66,11 @@ module.exports.listfreeexperiment = async (callback)=> {
 }
 
 module.exports.listexperimentbyid = async (id)=> {
-       return experimentModel.find({_id: id})
+       return experimentModel.find({_id: id}).populate("boardId").populate("classId").populate("subjectId").exec()
 }
 
 module.exports.listfreeexperiments = async (classId,isFree,callback)=> {
-    await experimentModel.find({classId: classId, isFree: isFree},(err,data)=>{
+    await experimentModel.find({classId: classId, isFree: isFree}).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
         if(err){
             callback(null)
         }

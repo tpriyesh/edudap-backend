@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var subjectSchema = new Schema({
-    boardId: { type: String },
-    classId: { type: String },
+    boardId: { type: mongoose.Schema.Types.ObjectId, ref: "board"},
+    classId: { type: mongoose.Schema.Types.ObjectId, ref: "class"},
     subjectname: { type: String }, 
     description: { type: String },
     isActive: { type: Boolean },
@@ -19,7 +19,7 @@ module.exports.createsubject = (data1,callback)=>{
 }
 
 module.exports.listsubject = async (callback)=> {
-    await subjectModel.find({},(err,data)=>{
+    await subjectModel.find({}).populate("boardId").populate("classId").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -29,7 +29,7 @@ module.exports.listsubject = async (callback)=> {
     })
 }
 module.exports.listsubjectbyclass = async (classId,callback)=> {
-    await subjectModel.find({classId:classId},(err,data)=>{
+    await subjectModel.find({classId:classId}).populate("boardId").populate("classId").exec((err,data)=>{
         if(err){
             callback(null)
         }

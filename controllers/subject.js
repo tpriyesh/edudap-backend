@@ -47,7 +47,7 @@ router.get('/listallsubject', async (req, res) =>{
 router.delete('/deletesubject/:subjectname',subjectValidation.deletesubjectValidation(), async(req, res) =>{
     subjectModel.deletesubject(req.params.subjectname,(result)=>{
         if(!result){
-            res.json({ error: 'Deleting subject is failed', error_description: error })
+            res.json({ error: 'Deleting subject is failed', error_description: "subject not found!" })
             return
         }
             res.json({ message: 'subject deleted successful!'})

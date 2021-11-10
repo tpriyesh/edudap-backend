@@ -10,9 +10,9 @@ var userSchema = new Schema({
 })
 
 var usermoreSchema = new Schema({
-    userid: {type: mongoose.Schema.Types.ObjectId},
-    userboardid: { type: String},
-    userclassid: { type: String},
+    userid: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
+    userboardid: { type: mongoose.Schema.Types.ObjectId, ref: "board"},
+    userclassid: { type: mongoose.Schema.Types.ObjectId, ref: "class"},
     issubscriptionactive: { type: Boolean},
     purchaseditems: {type: Array}
 })
@@ -65,7 +65,7 @@ module.exports.addexperiments = (id, items,callback)=>{
 
 module.exports.listauser = (id)=> {
     try{
-        return usermoreModel.find({userid:id})
+        return usermoreModel.findOne({userid:id}).populate("userId").populate("userboardid").populate("userclassid").exec()
     }catch(e){
         return []
     }

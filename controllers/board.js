@@ -30,7 +30,7 @@ router.get('/listallboard', async (req, res) =>{
 router.delete('/deleteboard/:boardname',boardValidation.deleteboardValidation(), async (req, res) =>{
     boardModel.deleteBoard(req.params.boardname,(result)=>{
         if(!result){
-            res.json({ error: 'Deleting board is failed!', error_description: "board ot found!" })
+            res.json({ error: 'Deleting board is failed!', error_description: "board not found!" })
             return
         }
             res.json({ message: 'board deleted successful!'})
