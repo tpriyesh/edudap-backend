@@ -2,8 +2,9 @@ var express = require('express')
 var router = express.Router()
 var subjectModel = require('../models/subjectModel')
 var subjectValidation = require('../validator/subjectValidator')
+var ensureToken = require('../utils/jwttoken')
 
-router.post('/createsubject', subjectValidation.createsubjectValidation(), async (req, res) =>{
+router.post('/createsubject', ensureToken, subjectValidation.createsubjectValidation(), async (req, res) =>{
 
     let data ={}
         data.boardId = req.body.boardId
@@ -23,7 +24,7 @@ router.post('/createsubject', subjectValidation.createsubjectValidation(), async
 
 })
 
-router.get('/listsubjectbyclass/:classId', async (req, res) =>{
+router.get('/listsubjectbyclass/:classId', ensureToken, async (req, res) =>{
     subjectModel.listsubjectbyclass(req.params.classId,(result)=>{
         if(!result){
             res.json({ error: 'subject data empty', error_description: "" })
@@ -34,7 +35,7 @@ router.get('/listsubjectbyclass/:classId', async (req, res) =>{
 
 })
 
-router.get('/listallsubject', async (req, res) =>{
+router.get('/listallsubject', ensureToken, async (req, res) =>{
     subjectModel.listsubject((result)=>{
         if(!result){
             res.json({ error: 'subject data empty', error_description: "" })
@@ -44,7 +45,7 @@ router.get('/listallsubject', async (req, res) =>{
     })
 
 })
-router.delete('/deletesubject/:subjectname',subjectValidation.deletesubjectValidation(), async(req, res) =>{
+router.delete('/deletesubject/:subjectname', ensureToken, subjectValidation.deletesubjectValidation(), async(req, res) =>{
     subjectModel.deletesubject(req.params.subjectname,(result)=>{
         if(!result){
             res.json({ error: 'Deleting subject is failed', error_description: "subject not found!" })

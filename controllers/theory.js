@@ -3,8 +3,10 @@ var express = require('express')
 var router = express.Router()
 var theoryModel = require('../models/theoryModel')
 var theoryValidation = require('../validator/theoryValidator')
+var ensureToken = require('../utils/jwttoken')
 
-router.post('/createtheory', theoryValidation.createtheoryValidation(), async (req, res) =>{
+
+router.post('/createtheory', ensureToken, theoryValidation.createtheoryValidation(), async (req, res) =>{
     let data ={}
         data.classId = req.body.classId
         data.boardId = req.body.boardId
@@ -26,7 +28,7 @@ router.post('/createtheory', theoryValidation.createtheoryValidation(), async (r
 
 })
 
-router.get('/listalltheory', async (req, res) =>{
+router.get('/listalltheory', ensureToken, async (req, res) =>{
     theoryModel.listtheory((result)=>{
         if(!result){
             res.json({ error: 'theory data empty', error_description: "" })
@@ -37,7 +39,7 @@ router.get('/listalltheory', async (req, res) =>{
 
 })
 
-router.get('/listalltheorybyclass/:classId', async (req, res) =>{
+router.get('/listalltheorybyclass/:classId', ensureToken, async (req, res) =>{
     theoryModel.listtheorybyclass(req.params.classId,(result)=>{
         if(!result){
             res.json({ error: 'theory data empty', error_description: "" })
@@ -48,7 +50,7 @@ router.get('/listalltheorybyclass/:classId', async (req, res) =>{
 
 })
 
-router.get('/listalltheorybyboard/:boardId', async (req, res) =>{
+router.get('/listalltheorybyboard/:boardId', ensureToken, async (req, res) =>{
     theoryModel.listtheorybyclass(req.params.boardId,(result)=>{
         if(!result){
             res.json({ error: 'theory data empty', error_description: "" })
@@ -59,7 +61,7 @@ router.get('/listalltheorybyboard/:boardId', async (req, res) =>{
 
 })
 
-router.get('/listalltheorybysubject/:subjectId', async (req, res) =>{
+router.get('/listalltheorybysubject/:subjectId', ensureToken, async (req, res) =>{
     theoryModel.listtheorybyclass(req.params.subjectId,(result)=>{
         if(!result){
             res.json({ error: 'theory data empty', error_description: "" })
@@ -70,7 +72,7 @@ router.get('/listalltheorybysubject/:subjectId', async (req, res) =>{
 
 })
 
-router.get('/listallfreetheory', async (req, res) =>{
+router.get('/listallfreetheory', ensureToken, async (req, res) =>{
     theoryModel.listfreetheory((result)=>{
         if(!result){
             res.json({ error: 'theory data empty', error_description: "" })
@@ -81,7 +83,7 @@ router.get('/listallfreetheory', async (req, res) =>{
 
 })
 
-router.delete('/deletetheory/:theoryname', async (req, res) =>{
+router.delete('/deletetheory/:theoryname', ensureToken, async (req, res) =>{
     if (!req.body.theoryname) {
         res.json({ error: 'invalid_details', error_description: "theory name is required." })
         return

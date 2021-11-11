@@ -2,8 +2,9 @@ var express = require('express')
 var router = express.Router()
 var boardModel = require('../models/boardModel')
 var boardValidation = require('../validator/boardValidator')
+var ensureToken = require('../utils/jwttoken')
 
-router.post('/createboard', boardValidation.createboardValidation(), async (req, res) =>{
+router.post('/createboard',ensureToken, boardValidation.createboardValidation(), async (req, res) =>{
     let data ={}
         data.boardname = req.body.boardname
         data.isActive = req.body.isActive
@@ -18,7 +19,7 @@ router.post('/createboard', boardValidation.createboardValidation(), async (req,
 
 })
 
-router.get('/listallboard', async (req, res) =>{
+router.get('/listallboard',ensureToken, async (req, res) =>{
    var result = await boardModel.listBoard(result)
         if(!result){
             res.json({ error: 'no data!', error_description: "board data empty!" })
@@ -27,7 +28,7 @@ router.get('/listallboard', async (req, res) =>{
         res.json(result)
 })
 
-router.delete('/deleteboard/:boardname',boardValidation.deleteboardValidation(), async (req, res) =>{
+router.delete('/deleteboard/:boardname', ensureToken, boardValidation.deleteboardValidation(), async (req, res) =>{
     boardModel.deleteBoard(req.params.boardname,(result)=>{
         if(!result){
             res.json({ error: 'Deleting board is failed!', error_description: "board not found!" })

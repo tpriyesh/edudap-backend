@@ -2,8 +2,9 @@ var express = require('express')
 var router = express.Router()
 var classModel = require('../models/classModel')
 var classValidator = require('../validator/classValidator')
+var ensureToken = require('../utils/jwttoken')
 
-router.post('/createclass', classValidator.createclassValidation(), (req, res) =>{
+router.post('/createclass', ensureToken, classValidator.createclassValidation(), (req, res) =>{
     let data ={}
         data.boardId = req.body.boardId
         data.classname = req.body.classname
@@ -20,7 +21,7 @@ router.post('/createclass', classValidator.createclassValidation(), (req, res) =
 
 })
 
-router.get('/listclassbyboard/:boardId', async (req, res) =>{
+router.get('/listclassbyboard/:boardId', ensureToken, async (req, res) =>{
     classModel.listclassbyboard(req.params.boardId,(result)=>{
         if(!result){
             res.json({ error: 'class data empty', error_description: "" })
@@ -31,7 +32,7 @@ router.get('/listclassbyboard/:boardId', async (req, res) =>{
 
 })
 
-router.get('/listallclass', async (req, res) =>{
+router.get('/listallclass', ensureToken, async (req, res) =>{
     classModel.listclass((result)=>{
         console.log(result);
         if(!result){
@@ -42,7 +43,7 @@ router.get('/listallclass', async (req, res) =>{
     })
 
 })
-router.delete('/deleteclass/:classname',classValidator.deleteclassValidation(), async (req, res) =>{
+router.delete('/deleteclass/:classname', ensureToken, classValidator.deleteclassValidation(), async (req, res) =>{
     classModel.deleteclass(req.params.classname,(result)=>{
         if(!result){
             res.json({ error: 'Deleting class is failed', error_description: "" })

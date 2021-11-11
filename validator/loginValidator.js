@@ -69,12 +69,13 @@ signupValidation = () =>{
 
 getotpValidation = () =>{
   return (req, res, next) =>{
-    if (!req.body.phonenumber) {
+    req.params.phonenumber = parseInt(req.params.phonenumber)
+    if (!req.params.phonenumber) {
       res.status(400)
       res.json({ error: 'invalid_details!', error_description: "Phone number is required!" })
       return
   }
-  else if(typeof (req.body["phonenumber"]) !== "number"){
+  else if(typeof (req.params["phonenumber"]) !== "number"){
     res.status(400)
     res.json({error: "invalid details!", error_description: "phone number must be a number!"})
     return
