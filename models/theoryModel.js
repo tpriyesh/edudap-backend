@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var theorySchema = new Schema({
-    boardId: { type: String },
-    classId: { type: String },
-    subjectId: { type: String },
+    board: { type: String },
+    class: { type: String },
+    subject: { type: String },
     theoryname: { type: String }, 
     theorymetadata:{ type: String }, 
     description: { type: String },
@@ -22,7 +22,7 @@ module.exports.createtheory = (data1,callback)=>{
 }
 
 module.exports.listtheory = async (callback)=> {
-    await theoryModel.find({}).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
+    await theoryModel.find({}).populate("board").populate("class").populate("subject").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -32,7 +32,7 @@ module.exports.listtheory = async (callback)=> {
     })
 }
 module.exports.listtheorybyclass = async (classId,callback)=> {
-    await theoryModel.find({classId:classId}).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
+    await theoryModel.find({class:classId}).populate("board").populate("class").populate("subject").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -43,7 +43,7 @@ module.exports.listtheorybyclass = async (classId,callback)=> {
 }
 
 module.exports.listtheorybyboard = async (boardId,callback)=> {
-    await theoryModel.find({boardId:boardId}).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
+    await theoryModel.find({board:boardId}).populate("board").populate("class").populate("subject").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -54,7 +54,7 @@ module.exports.listtheorybyboard = async (boardId,callback)=> {
 }
 
 module.exports.listtheorybysubject = async (subjectId,callback)=> {
-    await theoryModel.find({subjectId:subjectId}).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
+    await theoryModel.find({subject:subjectId}).populate("board").populate("class").populate("subject").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -65,7 +65,7 @@ module.exports.listtheorybysubject = async (subjectId,callback)=> {
 }
 
 module.exports.listfreetheory = async (callback)=> {
-    await theoryModel.find({isFree: "true" }).populate("boardId").populate("classId").populate("subjectId").exec((err,data)=>{
+    await theoryModel.find({isFree: "true" }).populate("board").populate("class").populate("subject").exec((err,data)=>{
         if(err){
             callback(null)
         }

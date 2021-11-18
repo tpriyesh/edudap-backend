@@ -1,13 +1,13 @@
 createtheoryValidation = ()=>{
     return (req, res, next) => {
-        if (!req.body.boardId) {
+        if (!req.body.board) {
             res.status(400)
-            res.json({ error: 'invalid_details', error_description: "Board Id is required." })
+            res.json({ error: 'invalid_details', error_description: "Board is required." })
             return
         }
-        if (!req.body.classId) {
+        if (!req.body.class) {
             res.status(400)
-            res.json({ error: 'invalid_details', error_description: "Class Id is required." })
+            res.json({ error: 'invalid_details', error_description: "Class is required." })
             return
         }
 

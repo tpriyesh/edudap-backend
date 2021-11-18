@@ -19,7 +19,7 @@ router.post('/createboard',ensureToken, boardValidation.createboardValidation(),
 
 })
 
-router.get('/listallboard',ensureToken, async (req, res) =>{
+router.get('/listallboard', async (req, res) =>{
    var result = await boardModel.listBoard(result)
         if(!result){
             res.json({ error: 'no data!', error_description: "board data empty!" })

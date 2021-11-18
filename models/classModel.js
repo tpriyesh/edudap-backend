@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var classSchema = new Schema({
-    boardId: { type: mongoose.Schema.Types.ObjectId, ref: "board"},
+    board: { type: mongoose.Schema.Types.ObjectId, ref: "board"},
     classname: { type: String },
     isActive: { type: Boolean },
     createdDate: { type: String },
@@ -17,7 +17,7 @@ module.exports.createclass = (data1,callback)=> {
 }
 
 module.exports.listclass = async (callback)=> {
-    await classModel.find({}).populate("boardId").exec((err,data)=>{
+    await classModel.find({}).populate("board").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -27,7 +27,7 @@ module.exports.listclass = async (callback)=> {
     })
 }
 module.exports.listclassbyboard = async (boardId,callback)=> {
-    await classModel.find({boardId:boardId}).populate("boardId").exec((err,data)=>{
+    await classModel.find({board:boardId}).populate("board").exec((err,data)=>{
         if(err){
             callback(null)
         }

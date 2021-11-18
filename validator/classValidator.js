@@ -1,12 +1,12 @@
 createclassValidation = ()=>{
     return (req, res, next) => {
-        if (!req.body.boardId) {
-            res.json({ error: 'invalid_details', error_description: "Board Id is required." })
+        if (!req.body.board) {
+            res.json({ error: 'invalid_details', error_description: "Board is required." })
             return
         }
-        else if(typeof (req.body["boardId"]) !== "string"){
+        else if(typeof (req.body["board"]) !== "string"){
             res.status(400)
-            res.json({error: "invalid details!", error_description: "board Id must be string!"})
+            res.json({error: "invalid details!", error_description: "board must be string!"})
             return
           }
 

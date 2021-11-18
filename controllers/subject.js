@@ -7,8 +7,8 @@ var ensureToken = require('../utils/jwttoken')
 router.post('/createsubject', ensureToken, subjectValidation.createsubjectValidation(), async (req, res) =>{
 
     let data ={}
-        data.boardId = req.body.boardId
-        data.classId = req.body.classId
+        data.board = req.body.board
+        data.class = req.body.class
         data.subjectname = req.body.subjectname
         data.description = req.body.description
         data.isActive = req.body.isActive

@@ -6,7 +6,7 @@ var ensureToken = require('../utils/jwttoken')
 
 router.post('/createclass', ensureToken, classValidator.createclassValidation(), (req, res) =>{
     let data ={}
-        data.boardId = req.body.boardId
+        data.board = req.body.board
         data.classname = req.body.classname
         data.isActive = req.body.isActive
         data.createdDate = new Date().getTime()
@@ -21,7 +21,7 @@ router.post('/createclass', ensureToken, classValidator.createclassValidation(),
 
 })
 
-router.get('/listclassbyboard/:boardId', ensureToken, async (req, res) =>{
+router.get('/listclassbyboard/:boardId', async (req, res) =>{
     classModel.listclassbyboard(req.params.boardId,(result)=>{
         if(!result){
             res.json({ error: 'class data empty', error_description: "" })
@@ -32,7 +32,7 @@ router.get('/listclassbyboard/:boardId', ensureToken, async (req, res) =>{
 
 })
 
-router.get('/listallclass', ensureToken, async (req, res) =>{
+router.get('/listallclass', async (req, res) =>{
     classModel.listclass((result)=>{
         console.log(result);
         if(!result){

@@ -8,9 +8,9 @@ var ensureToken = require('../utils/jwttoken')
 
 router.post('/createtheory', ensureToken, theoryValidation.createtheoryValidation(), async (req, res) =>{
     let data ={}
-        data.classId = req.body.classId
-        data.boardId = req.body.boardId
-        data.subjectId = req.body.subjectId
+        data.class = req.body.class
+        data.board = req.body.board
+        data.subject = req.body.subject
         data.theoryname = req.body.theoryname
         data.theorymetadata = req.body.theorymetadata
         data.isFree = req.body.isFree

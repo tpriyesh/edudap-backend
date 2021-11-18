@@ -7,12 +7,14 @@ var ensureToken = require('../utils/jwttoken')
 
 router.post('/createexperiment', ensureToken, experimentValidator.createexperimentValidation(), async (req, res) =>{
     let data ={}
-        data.classId = req.body.classId
-        data.boardId = req.body.boardId
-        data.subjectId = req.body.subjectId
+        data.class = req.body.class
+        data.board = req.body.board
+        data.subject = req.body.subject
         data.experimentname = req.body.experimentname
         data.isFree = req.body.isFree
         data.description = req.body.description
+        data.experimentvideourl = req.body.experimentvideourl
+        data.experimentimage = req.body.experimentimage
         data.createdDate = new Date().getTime()
         data.lastupdateddate = new Date().getTime()
 

@@ -15,9 +15,10 @@ router.post('/signup', validatelogin.signupValidation(), async (req, res) =>{
         dat.userboardid = req.body.userboardid
         dat.issubscriptionactive = req.body.issubscriptionactive
         dat.purchaseditems = req.body.purchaseditems
-        
+
+        console.log("Function for confirmation of phone number with otp!");
+
     var result = await usermodel.signUp(data,dat)
-    console.log(result);
         if(!result){
             res.json({ error: 'signup failed!', error_description: error })
             return
@@ -32,13 +33,8 @@ router.get('/getotp/:phonenumber', validatelogin.getotpValidation(), async (req,
             res.json({ error: 'User not registered!', error_description: "User not found!" })
             return
         }
-        let data = {
-            _id: result._id,
-            username: result.username
-        }
-        let token = jwt.sign(data,"edu_secret_key",{expiresIn: 86400})
 
-        res.json({ message: 'Function for sending otp proccesssing!', token: token})
+        res.json({ message: 'Function for sending otp proccesssing!'})
 })
 
 router.post('/checkotp', validatelogin.checkotpValidation(), async (req, res) =>{
@@ -46,7 +42,14 @@ router.post('/checkotp', validatelogin.checkotpValidation(), async (req, res) =>
     res.json({ error: 'invalid otp', error_description: "Otp mismatch!" })
     return
    }
-   res.json({ message: 'login successful!'})
+
+   var result = await usermodel.findUser(req.params.phonenumber)
+   let data = {
+       _id: result._id,
+       username: result.username
+   }
+   let token = jwt.sign(data,"edu_secret_key",{expiresIn: 86400})
+   res.json({ message: 'login successful!', token: token})
 })
 
 module.exports = router

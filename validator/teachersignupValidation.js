@@ -4,14 +4,14 @@ signupValidation = () =>{
 
   return (req, res, next) => {
 
-    if(!req.body.username){
+    if(!req.body.teachername){
       res.status(400)
-      res.json({error: "invalid details!", error_description: "user name is required!"})
+      res.json({error: "invalid details!", error_description: "teacher name is required!"})
       return
     }
-    else if(typeof (req.body["username"]) !== "string"){
+    else if(typeof (req.body["teachername"]) !== "string"){
       res.status(400)
-      res.json({error: "invalid details!", error_description: "user name must be string!"})
+      res.json({error: "invalid details!", error_description: "teacher name must be string!"})
       return
     }
 
@@ -42,17 +42,23 @@ signupValidation = () =>{
       return
     }
 
-    if(!req.body.userclassid){
+    if(!req.body.teacherclass){
       res.status(400)
       res.json({error: "invalid details!", error_description: "class is required!"})
       return
     }
 
-    if(!req.body.userboardid){
+    if(!req.body.teacherboard){
       res.status(400)
       res.json({error: "invalid details!", error_description: "board is required!"})
       return
     }
+
+    if(!req.body.teachersubject){
+        res.status(400)
+        res.json({error: "invalid details!", error_description: "subject is required!"})
+        return
+      }
     next()
   }
 }
