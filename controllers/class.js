@@ -4,7 +4,7 @@ var classModel = require('../models/classModel')
 var classValidator = require('../validator/classValidator')
 var ensureToken = require('../utils/jwttoken')
 
-router.post('/createclass', ensureToken, classValidator.createclassValidation(), (req, res) =>{
+router.post('/createclass',ensureToken, classValidator.createclassValidation(), (req, res) =>{
     let data ={}
         data.board = req.body.board
         data.classname = req.body.classname

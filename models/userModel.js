@@ -11,8 +11,8 @@ var userSchema = new Schema({
 
 var usermoreSchema = new Schema({
     userid: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
-    userboardid: { type: mongoose.Schema.Types.ObjectId, ref: "board"},
-    userclassid: { type: mongoose.Schema.Types.ObjectId, ref: "class"},
+    userboard: { type: mongoose.Schema.Types.ObjectId, ref: "board"},
+    userclass: { type: mongoose.Schema.Types.ObjectId, ref: "class"},
     issubscriptionactive: { type: Boolean},
     purchaseditems: {type: Array}
 })
@@ -28,6 +28,16 @@ module.exports.signUp = async(data1,data2)=> {
         let user1 = new usermoreModel(data2)
         var dat = await user1.save()
         return dat
+    }
+ catch(e){
+     return []
+ }
+}
+
+module.exports.sendotp = async(phonenumber)=> {
+    try{
+        var otp = 1234
+        return otp
     }
  catch(e){
      return []

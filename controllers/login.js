@@ -11,12 +11,16 @@ router.post('/signup', validatelogin.signupValidation(), async (req, res) =>{
         data.phonenumber = req.body.phonenumber
 
     let dat = {}
-        dat.userclassid = req.body.userclassid
-        dat.userboardid = req.body.userboardid
+        dat.userclass = req.body.userclass
+        dat.userboard = req.body.userboard
         dat.issubscriptionactive = req.body.issubscriptionactive
         dat.purchaseditems = req.body.purchaseditems
 
-        console.log("Function for confirmation of phone number with otp!");
+        var otp = await usermodel.sendotp(data.phonenumber)
+        if(otp != 1234){
+            res.json({ error: 'incorrect otp!', error_description: "" })
+            return
+        }
 
     var result = await usermodel.signUp(data,dat)
         if(!result){

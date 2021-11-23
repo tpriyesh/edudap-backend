@@ -4,7 +4,7 @@ var subjectModel = require('../models/subjectModel')
 var subjectValidation = require('../validator/subjectValidator')
 var ensureToken = require('../utils/jwttoken')
 
-router.post('/createsubject', ensureToken, subjectValidation.createsubjectValidation(), async (req, res) =>{
+router.post('/createsubject',ensureToken, subjectValidation.createsubjectValidation(), async (req, res) =>{
 
     let data ={}
         data.board = req.body.board
