@@ -27,6 +27,10 @@ router.post('/signup', validatelogin.signupValidation(), async (req, res) =>{
 
 })
 
+router.get('/register/getotp/:phonenumber', validatelogin.getotpValidation(), async (req, res) =>{
+    res.json({ message: 'Function for sending otp proccesssing!', status: true})
+})
+
 router.get('/getotp/:phonenumber', validatelogin.getotpValidation(), async (req, res) =>{
     var result = await usermodel.findUser(req.params.phonenumber)
         if(!result){
@@ -37,6 +41,15 @@ router.get('/getotp/:phonenumber', validatelogin.getotpValidation(), async (req,
         res.json({ message: 'Function for sending otp proccesssing!'})
 })
 
+router.post('/register/checkotp', validatelogin.checkotpValidation(), async (req, res) =>{
+    if(req.body.otp !== 1234){
+     res.json({ error: 'invalid otp', error_description: "Otp mismatch!" })
+     return
+    }
+ 
+    res.json({ message: 'login successful!', status: true})
+ })
+
 router.post('/checkotp', validatelogin.checkotpValidation(), async (req, res) =>{
    if(req.body.otp !== 1234){
     res.json({ error: 'invalid otp', error_description: "Otp mismatch!" })
@@ -44,6 +57,7 @@ router.post('/checkotp', validatelogin.checkotpValidation(), async (req, res) =>
    }
 
    var result = await usermodel.findUser(req.params.phonenumber)
+
    let data = {
        _id: result._id,
        username: result.username
