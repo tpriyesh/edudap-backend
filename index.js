@@ -15,7 +15,7 @@ mongoose.connect(MONGO_URL, {
 
   
 app.use('/api', routes)
-
+app.use(express.static('public'))
 app.get('/', function(req, res){
    res.send("Hello world!");
 });

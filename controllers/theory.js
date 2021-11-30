@@ -6,13 +6,14 @@ var theoryValidation = require('../validator/theoryValidator')
 var ensureToken = require('../utils/jwttoken')
 
 
-router.post('/createtheory', ensureToken, theoryValidation.createtheoryValidation(), async (req, res) =>{
+router.post('/createtheory',ensureToken, theoryValidation.createtheoryValidation(), async (req, res) =>{
     let data ={}
         data.class = req.body.class
         data.board = req.body.board
         data.subject = req.body.subject
         data.theoryname = req.body.theoryname
         data.theorymetadata = req.body.theorymetadata
+        data.theoryimage = req.body.theoryimage
         data.isFree = req.body.isFree
         data.description = req.body.description
         data.createdDate = new Date().getTime()

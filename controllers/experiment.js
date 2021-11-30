@@ -5,7 +5,7 @@ var experimentModel = require('../models/experimentModel')
 var experimentValidator = require('../validator/experimentValidator')
 var ensureToken = require('../utils/jwttoken')
 
-router.post('/createexperiment', ensureToken, experimentValidator.createexperimentValidation(), async (req, res) =>{
+router.post('/createexperiment',ensureToken, experimentValidator.createexperimentValidation(), async (req, res) =>{
     let data ={}
         data.class = req.body.class
         data.board = req.body.board

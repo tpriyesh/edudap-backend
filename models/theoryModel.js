@@ -8,6 +8,7 @@ var theorySchema = new Schema({
     subject: { type: String },
     theoryname: { type: String }, 
     theorymetadata:{ type: String }, 
+    theoryimage:{ type: String },
     description: { type: String },
     isFree: { type: Boolean },
     createdDate: { type: String },
