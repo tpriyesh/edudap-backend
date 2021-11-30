@@ -1,10 +1,13 @@
 var express = require('express');
 var app = express();
+const cors = require('cors');
 var routes = require('./routes')
 var mongoose = require('mongoose');
 var MONGO_URL = 'mongodb+srv://edudapuser:edudappwd@cluster0.1wliu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.options('*', cors());
 app.use(express.json());
 
 mongoose.connect(MONGO_URL, {
