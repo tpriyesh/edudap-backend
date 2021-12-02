@@ -18,7 +18,7 @@ module.exports.createbooking = (data1,callback)=>{
 }
 
 module.exports.listbooking = async (callback)=> {
-    await bookingModel.find({}).populate("user").populate("teacher").exec((err,data)=>{
+    await bookingModel.find({}).populate("student").populate("teacher").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -27,8 +27,8 @@ module.exports.listbooking = async (callback)=> {
         }
     })
 }
-module.exports.listbookingbyclass = async (classId,callback)=> {
-    await bookingModel.find({class:classId}).populate("user").populate("teacher").exec((err,data)=>{
+module.exports.listbookingsbystudent = async (studentId,callback)=> {
+    await bookingModel.find({student:studentId}).populate("student").populate("teacher").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -38,8 +38,41 @@ module.exports.listbookingbyclass = async (classId,callback)=> {
     })
 }
 
-module.exports.deletebooking = (bookingname,callback)=> {
-    bookingModel.deleteOne({bookingname:bookingname},(err,data)=>{
+module.exports.listbookingsbyteacher = async (teacherId,callback)=> {
+    await bookingModel.find({teacher:teacherId}).populate("student").populate("teacher").exec((err,data)=>{
+        if(err){
+            callback(null)
+        }
+        else{
+            callback(data)
+        }
+    })
+}
+
+module.exports.listallbookingsbydate = async (date,callback)=> {
+    await bookingModel.find({date:date}).populate("student").populate("teacher").exec((err,data)=>{
+        if(err){
+            callback(null)
+        }
+        else{
+            callback(data)
+        }
+    })
+}
+
+module.exports.listallbookingsbydateandtime = async (date,time,callback)=> {
+    await bookingModel.find({date:date,time:time}).populate("student").populate("teacher").exec((err,data)=>{
+        if(err){
+            callback(null)
+        }
+        else{
+            callback(data)
+        }
+    })
+}
+
+module.exports.deletebooking = (id,callback)=> {
+    bookingModel.deleteOne({_id:id},(err,data)=>{
         if(err){
             callback(null)
         }

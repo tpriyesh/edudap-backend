@@ -23,8 +23,41 @@ router.post('/createbooking',ensureToken, bookingValidation.createbookingValidat
 
 })
 
-router.get('/listbookingbyclass/:classId', ensureToken, async (req, res) =>{
-    bookingModel.listbookingbyclass(req.params.classId,(result)=>{
+router.get('/listallstudentbookings/:studentId', ensureToken, async (req, res) =>{
+    bookingModel.listbookingsbystudent(req.params.studentId,(result)=>{
+        if(!result){
+            res.json({ error: 'booking data empty', error_description: "" })
+            return
+        }
+        res.json({result})
+    })
+
+})
+
+router.get('/listallteacherbookings/:teacherId', ensureToken, async (req, res) =>{
+    bookingModel.listbookingsbyteacher(req.params.teacherId,(result)=>{
+        if(!result){
+            res.json({ error: 'booking data empty', error_description: "" })
+            return
+        }
+        res.json({result})
+    })
+
+})
+
+router.post('/listallbookingsbydate', ensureToken, async (req, res) =>{
+    bookingModel.listallbookingsbydate(req.body.date,(result)=>{
+        if(!result){
+            res.json({ error: 'booking data empty', error_description: "" })
+            return
+        }
+        res.json({result})
+    })
+
+})
+
+router.post('/listallbookingsbydateandtime', ensureToken, async (req, res) =>{
+    bookingModel.listallbookingsbydateandtime(req.body.date,req.body.time,(result)=>{
         if(!result){
             res.json({ error: 'booking data empty', error_description: "" })
             return
@@ -44,8 +77,8 @@ router.get('/listallbooking', ensureToken, async (req, res) =>{
     })
 
 })
-router.delete('/deletebooking/:bookingname', ensureToken, bookingValidation.deletebookingValidation(), async(req, res) =>{
-    bookingModel.deletebooking(req.params.bookingname,(result)=>{
+router.delete('/deletebooking/:id', ensureToken, async(req, res) =>{
+    bookingModel.deletebooking(req.params.id,(result)=>{
         if(!result){
             res.json({ error: 'Deleting booking is failed', error_description: "booking not found!" })
             return

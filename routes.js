@@ -9,6 +9,8 @@ var class1 = require('./controllers/class')
 var board =require('./controllers/board')
 var subject =require('./controllers/subject')
 var theory =require('./controllers/theory')
+var booking =require('./controllers/booking')
+var teacher =require('./controllers/teacher')
 
 
 router.use('/login', login)
@@ -18,6 +20,8 @@ router.use('/board', board)
 router.use('/subject', subject)
 router.use('/experiment', experiment)
 router.use('/theory', theory)
+router.use('/booking', booking)
+router.use('/teacher', teacher)
 
 module.exports = router
 

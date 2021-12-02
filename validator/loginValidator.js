@@ -77,7 +77,6 @@ getotpValidation = () =>{
 
 checkotpValidation = () =>{
   return (req, res, next) =>{
-    console.log(req.body);
     if (!req.body.otp) {
       res.status(400)
       res.json({ error: 'invalid_details!', error_description: "otp required!" })

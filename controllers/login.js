@@ -60,7 +60,7 @@ router.post('/checkotp', validatelogin.checkotpValidation(), async (req, res) =>
     return
    }
 
-   var result = await usermodel.findUser(req.params.phonenumber)
+   var result = await usermodel.findUser(req.body.phonenumber)
 
    let data = {
        _id: result._id,
