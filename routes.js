@@ -11,7 +11,7 @@ var subject =require('./controllers/subject')
 var theory =require('./controllers/theory')
 var booking =require('./controllers/booking')
 var teacher =require('./controllers/teacher')
-
+var query =require('./controllers/query')
 
 router.use('/login', login)
 router.use('/user', user)
@@ -22,6 +22,7 @@ router.use('/experiment', experiment)
 router.use('/theory', theory)
 router.use('/booking', booking)
 router.use('/teacher', teacher)
+router.use('/query', query)
 
 module.exports = router
 
