@@ -1,0 +1,17 @@
+[
+    {
+        "boardname" : "abc",
+        "isActive" : false,
+        "createdDate" : "1637646502258"
+    },
+    {
+        "boardname" : "xyz",
+        "isActive" : true,
+        "createdDate" : "1637646502258"
+    },
+    {
+        "boardname" : "def",
+        "isActive" : false,
+        "createdDate" : "1637646502258"
+    }
+]

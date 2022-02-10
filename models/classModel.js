@@ -37,6 +37,37 @@ module.exports.listclassbyboard = async (boardId,callback)=> {
     })
 }
 
+module.exports.listclassbyclassid = async (boardId,classId,callback)=> {
+    await classModel.find({_id:classId, board:boardId}).populate("board").exec((err,data)=>{
+        if(err){
+            callback(null)
+        }
+        else{
+            callback(data)
+        }
+    })
+}
+module.exports.updateisactive = async (id, data)=> {
+    try{
+        return queryModel.updateOne({_id:id}, data).exec()
+    }catch(e){
+        return []
+    }
+}
+
+
+module.exports.listactiveclass = async (boardid,callback)=> {
+    console.log(boardid);
+    await classModel.findOne({isActive:true, board:boardid}).populate("board").exec((err,data)=>{
+        if(err){
+            callback(null)
+        }
+        else{
+            callback(data)
+        }
+    })
+}
+
 module.exports.deleteclass = (classname,callback)=> {
     classModel.deleteOne({classname:classname},(err,data)=>{
         if(err){

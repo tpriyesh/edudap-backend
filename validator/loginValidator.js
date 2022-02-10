@@ -42,13 +42,13 @@ signupValidation = () =>{
       return
     }
 
-    if(!req.body.userclassid){
+    if(!req.body.userclass){
       res.status(400)
       res.json({error: "invalid details!", error_description: "class is required!"})
       return
     }
 
-    if(!req.body.userboardid){
+    if(!req.body.userboard){
       res.status(400)
       res.json({error: "invalid details!", error_description: "board is required!"})
       return

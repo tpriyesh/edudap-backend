@@ -1,0 +1,38 @@
+[
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subject" : "619c85473fa3152590a53270",
+        "theoryname" : "abc theory",
+        "theorymetadata" : "http://localhost:3000/theorymetadata",
+        "theoryimage" : "http://localhost:3000/images/abc theory.jfif",
+        "description" : "A water turbine is a rotary machine that converts....",
+        "isFree" : false,
+        "createdDate" : "1637646502258",
+        "lastupdateddate" : "1637646502258"
+    },
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subject" : "619c85473fa3152590a53270",
+        "theoryname" : "xyz theory",
+        "theorymetadata" : "http://localhost:3000/theorymetadata",
+        "theoryimage" : "http://localhost:3000/images/xyz theory.jfif",
+        "description" : "rotary machine that converts....",
+        "isFree" : true,
+        "createdDate" : "1637646502258",
+        "lastupdateddate" : "1637646502258"
+    },
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subject" : "619c85473fa3152590a53270",
+        "theoryname" : "def theory",
+        "theorymetadata" : "http://localhost:3000/theorymetadata",
+        "theoryimage" : "http://localhost:3000/images/def theory.jfif",
+        "description" : "turbine is a rotary machine that converts....",
+        "isFree" : false,
+        "createdDate" : "1637646502258",
+        "lastupdateddate" : "1637646502258"
+    }
+]

@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var querySchema = new Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
     text: { type: String },
-    reply: [{replytext:{ type: String },teacher:{type: mongoose.Schema.Types.ObjectId, ref: "teacher"}}],
+    reply: [{replytext:{ type: String },
+    teacher:{type: mongoose.Schema.Types.ObjectId, ref: "teacher"}}],
     board: { type: mongoose.Schema.Types.ObjectId, ref: "board"},
     class: { type: mongoose.Schema.Types.ObjectId, ref: "class"},
     subject: { type: mongoose.Schema.Types.ObjectId, ref: "subject"},
@@ -27,7 +28,6 @@ module.exports.createquery = async(data1)=> {
 }
 
 module.exports.createqueryreply = async (id, data)=> {
-    console.log("xaxaxaxsa");
     try{
         return queryModel.updateOne({_id:id}, data).exec()
     }catch(e){

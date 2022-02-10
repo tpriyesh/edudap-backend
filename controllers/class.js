@@ -32,6 +32,64 @@ router.get('/listclassbyboard/:boardId', async (req, res) =>{
 
 })
 
+
+router.post('/listclassbyclassId', async (req, res) =>{
+    classModel.listclassbyclassid(req.body.boardId,req.body.classId,(result)=>{
+        if(!result){
+            res.json({ error: 'class data empty', error_description: "" })
+            return
+        }
+        res.json({result})
+    })
+
+})
+
+router.get('/listactiveclass/:boardId', async (req, res) =>{
+    classModel.listactiveclass(req.params.boardId,(result)=>{
+        if(!result){
+            res.json({ error: 'class data empty', error_description: "" })
+            return
+        }
+        res.json({result})
+    })
+
+})
+
+router.post('/switchclass', async (req, res) =>{
+    classModel.listactiveclass(req.body.boardId,async (result)=>{
+        console.log(req.body.boardId,result)
+        if(!result){
+            res.json({ error: 'class data empty', error_description: "" })
+            return
+        }
+        let data ={}
+        data.board = result.board._id.toString()
+        data.classname = result.classname
+        data.isActive = false
+        data.createdDate = result.createdDate
+        console.log(data,"dsdsdsdsd",result._id);
+        var update1 = await classModel.updateisactive(result._id, data)
+        res.json({update1})
+        return
+        classModel.listclassbyclassid(req.body.classId,data.boardId,(result1)=>{
+            console.log(req.body.classId,result1)
+            if(!result){
+                res.json({ error: 'class data empty 1', error_description: "" })
+                return
+            }
+            let data1 ={}
+            data1.board = result1.board
+            data1.classname = result1.classname
+            data1.isActive = true
+            data1.createdDate = result1.createdDate
+            var update2 = classModel.updateisactive(result1._id, data1)
+            res.json({result:result1})
+        })
+    })
+    
+
+})
+
 router.get('/listallclass', async (req, res) =>{
     classModel.listclass((result)=>{
         console.log(result);

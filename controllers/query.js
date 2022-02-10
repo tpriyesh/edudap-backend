@@ -35,7 +35,6 @@ router.post('/createqueryreply',ensureToken, queryValidation.createqueryreplyVal
         data.subject = req.body.subject
         data.isActive = req.body.isActive
         data.createdDate = new Date().getTime()
-
        var result = await queryModel.createqueryreply(queryid, data)
         if(!result){
             res.json({ error: 'creating query reply is failed!', error_description: "" })

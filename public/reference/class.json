@@ -1,0 +1,20 @@
+[
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "classname" : "abc",
+        "isActive" : false,
+        "createdDate" : "1637646502258"
+    },
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "classname" : "def",
+        "isActive" : true,
+        "createdDate" : "1637646502258"
+    },
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "classname" : "xyz",
+        "isActive" : false,
+        "createdDate" : "1637646502258"
+    }
+]

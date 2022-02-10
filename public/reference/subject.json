@@ -1,0 +1,26 @@
+[
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subjectname" : "abc",
+        "description" : "Science that deals with the structure of....",
+        "isActive" : false,
+        "createdDate" : "1637646502258"
+    },
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subjectname" : "xyz",
+        "description" : "Science that deals with the structure of....",
+        "isActive" : true,
+        "createdDate" : "1637646502258"
+    },
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subjectname" : "def",
+        "description" : "Science that deals with the structure of....",
+        "isActive" : false,
+        "createdDate" : "1637646502258"
+    }
+]

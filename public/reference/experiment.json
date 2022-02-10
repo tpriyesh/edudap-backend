@@ -1,0 +1,38 @@
+[
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subject" : "619c85473fa3152590a53270",
+        "experimentname" : "abc experiment",
+        "isFree" : false,
+        "description" : "A water turbine is a rotary machine that converts....",
+        "experimentvideourl" : "http://localhost:3000/videos/Water Turbine Project.mp4",
+        "experimentimage" : "http://localhost:3000/images/Hydro-power.jfif",
+        "createdDate" : "1637646502258",
+        "lastupdateddate" : "1637646502258"
+    },
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subject" : "619c85473fa3152590a53270",
+        "experimentname" : "xyz experiment",
+        "isFree" : false,
+        "description" : "turbine is a rotary machine that converts....",
+        "experimentvideourl" : "http://localhost:3000/videos/xyz Project.mp4",
+        "experimentimage" : "http://localhost:3000/images/xyz.jfif",
+        "createdDate" : "1637646502258",
+        "lastupdateddate" : "1637646502258"
+    },
+    {
+        "board" : "619c7d8b40677233a8f61c55",
+        "class" : "619c81bbb04739146c0881ee",
+        "subject" : "619c85473fa3152590a53270",
+        "experimentname" : "def experiment",
+        "isFree" : false,
+        "description" : "rotary machine that converts....",
+        "experimentvideourl" : "http://localhost:3000/videos/def.mp4",
+        "experimentimage" : "http://localhost:3000/images/def.jfif", 
+        "createdDate" : "1637646502258",
+        "lastupdateddate" : "1637646502258"
+    }
+]
