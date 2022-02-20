@@ -57,7 +57,6 @@ router.get('/listactiveclass/:boardId', async (req, res) =>{
 
 router.post('/switchclass', async (req, res) =>{
     classModel.listactiveclass(req.body.boardId,async (result)=>{
-        console.log(req.body.boardId,result)
         if(!result){
             res.json({ error: 'class data empty', error_description: "" })
             return
@@ -67,18 +66,17 @@ router.post('/switchclass', async (req, res) =>{
         data.classname = result.classname
         data.isActive = false
         data.createdDate = result.createdDate
-        console.log(data,"dsdsdsdsd",result._id);
+
         var update1 = await classModel.updateisactive(result._id, data)
-        res.json({update1})
-        return
-        classModel.listclassbyclassid(req.body.classId,data.boardId,(result1)=>{
-            console.log(req.body.classId,result1)
-            if(!result){
+
+        classModel.listclassbyclassid(data.board,req.body.classId,(result1)=>{
+    
+            if(!result1){
                 res.json({ error: 'class data empty 1', error_description: "" })
                 return
             }
             let data1 ={}
-            data1.board = result1.board
+            data1.board = result1.board._id.toString()
             data1.classname = result1.classname
             data1.isActive = true
             data1.createdDate = result1.createdDate

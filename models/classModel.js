@@ -38,7 +38,8 @@ module.exports.listclassbyboard = async (boardId,callback)=> {
 }
 
 module.exports.listclassbyclassid = async (boardId,classId,callback)=> {
-    await classModel.find({_id:classId, board:boardId}).populate("board").exec((err,data)=>{
+    
+    await classModel.findOne({_id:classId, board:boardId}).populate("board").exec((err,data)=>{
         if(err){
             callback(null)
         }
@@ -49,7 +50,7 @@ module.exports.listclassbyclassid = async (boardId,classId,callback)=> {
 }
 module.exports.updateisactive = async (id, data)=> {
     try{
-        return queryModel.updateOne({_id:id}, data).exec()
+        return classModel.updateOne({_id:id}, data).exec()
     }catch(e){
         return []
     }
@@ -57,7 +58,6 @@ module.exports.updateisactive = async (id, data)=> {
 
 
 module.exports.listactiveclass = async (boardid,callback)=> {
-    console.log(boardid);
     await classModel.findOne({isActive:true, board:boardid}).populate("board").exec((err,data)=>{
         if(err){
             callback(null)
