@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+const port = process.env.PORT || 3000
 const cors = require('cors');
 var routes = require('./routes')
 var mongoose = require('mongoose');
@@ -23,6 +24,6 @@ app.get('/', function(req, res){
    res.send("Hello world!");
 });
 
-app.listen(3000, ()=>{
-   console.log("app running at port 3000!");
+app.listen(port, ()=>{
+   console.log("app running at port "+port);
 });
