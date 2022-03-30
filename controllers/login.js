@@ -4,6 +4,8 @@ var usermodel = require('../models/userModel')
 var validatelogin = require('../validator/loginValidator')
 var jwt = require("jsonwebtoken")
 
+//
+
 router.post('/signup', validatelogin.signupValidation(), async (req, res) =>{
     let data ={}
         data.username = req.body.username
