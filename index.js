@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-const port = process.env.PORT || 5000
+// const port = process.env.PORT || 5000
 const cors = require('cors');
 var routes = require('./routes')
 var mongoose = require('mongoose');
@@ -23,7 +23,8 @@ app.use(express.static('public'))
 app.get('/', function(req, res){
    res.send("Hello world!");
 });
-
-app.listen(port, ()=>{
-   console.log("app running at port "+port);
+var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
+server.listen(server_port, server_host, function() {
+    console.log('Listening on port %d', server_port);
 });
